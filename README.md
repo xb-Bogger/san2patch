@@ -4,6 +4,8 @@
 
 This repository contains the code for our USENIX Security 2025 paper, San2Patch.
 
+Benchmark including SAN2VULN is https://github.com/acorn421/san2patch-benchmark
+
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)

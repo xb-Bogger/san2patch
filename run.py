@@ -1,3 +1,4 @@
+# 负责读取数据集、筛选 vuln_id、串/并行调度补丁流程、记录结果与产物
 import datetime
 import os
 import signal
@@ -72,7 +73,7 @@ def terminate_process_and_children(pid):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-
+# click.group 定义 cli，必需参数 dataset_name（默认 Final）。子命令 run-patch 负责批量执行修复
 @click.group()
 @click.argument("dataset_name", type=click.Choice(["Final"]), default="Final")
 @click.pass_context
@@ -91,7 +92,9 @@ def cli(ctx, dataset_name):
 
     ctx.obj["dataset_instance"] = dataset_instance
 
-
+# 结合 Aim（实验记录）与 LangSmith（Tracing，可选）执行单个漏洞的多次尝试与阶段。
+# 调用 San2Patcher.make_diff 生成补丁，若 SUCCESS 则把对应 diff 与 graph artifact 复制到 vuln 目录，并在 res.txt 记录结果。
+# 失败或异常会记录并根据参数决定是否继续或抛出。
 def run_patch_one(
     vuln_id: str,
     LLMPatcher: BaseLLMPatcher,
@@ -367,6 +370,7 @@ def run_patch_one(
     "--raise-exception", type=bool, is_flag=True, default=False, help="Raise exception"
 )
 @click.pass_context
+# run_patch 遍历 vuln_dir 下的 .json，筛选要处理的 vuln_id 列表，然后串行或并行调用 run_patch_one
 def run_patch(
     ctx,
     num_workers: int,
@@ -397,7 +401,7 @@ def run_patch(
             vuln_ids = vuln_id_list["vulnloc"]
 
         vuln_ids = vuln_ids.split(",")
-
+    # 通过 test_dataset.FinalTestDataset 实例化，setup_directory 生成 gen_diff_{experiment_name} 等目录
     dataset: FinalTestDataset = ctx.obj["dataset_instance"]
 
     dataset.name = "final-test"

@@ -10,7 +10,7 @@ from tree_sitter import Language, Parser
 
 from san2patch.utils.enum import CODE_CONTEXT_MODE
 from san2patch.utils.logger import BaseLogger
-
+# ContextManager 使用 tree-sitter-C 提取指定行的代码、代码块、函数体、函数定义/返回等。工具模型 get_code_by_file_with_lines/get_code_block_from_file_with_lines 等暴露给 LLM 作为工具调用。
 
 class get_code_by_file_with_lines(BaseModel):
     """Retrieves the code snippet from the specified file with line numbers."""

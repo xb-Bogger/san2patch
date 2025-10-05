@@ -1,3 +1,4 @@
+# 核心控制器 San2Patcher，按 version 选择不同 Graph（tot/ablation），管理仓库拷贝、执行 graph、输出 diff 与 graph artifact。
 import json
 import os
 from typing import Literal, NamedTuple

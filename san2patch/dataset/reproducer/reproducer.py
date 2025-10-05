@@ -1,3 +1,4 @@
+# 封装容器/命令执行。
 import os
 import re
 from abc import abstractmethod

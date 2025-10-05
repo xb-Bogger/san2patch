@@ -1,5 +1,5 @@
 # Dataset downloader for Automated Program Repair (APR) tasks
-
+# 基类，目录组织、通用工具（如 get_only_san_output）
 import glob
 import json
 import os

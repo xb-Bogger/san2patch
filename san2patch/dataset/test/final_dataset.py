@@ -1,3 +1,4 @@
+# 负责数据集具体目录结构、提取预处理、生成 sanitizer 输出和补丁基线等
 import glob
 import os
 import shutil

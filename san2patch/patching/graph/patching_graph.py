@@ -1,3 +1,5 @@
+# 及各阶段子图（Where-To-Fix、RunPatch 等）
+# 几种 Ablation 版本：如 COT、No Context、No Comprehend、No HowToFix、Zeroshot 等，对应在 san2patch/patching/graph/ablation/... 下。
 from langgraph.graph import StateGraph
 
 from san2patch.patching.graph.comprehend_graph import generate_comprehend_graph
